@@ -46,7 +46,11 @@ export default function HomePage() {
     };
 
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('pt-BR');
+        if (!dateString) return '-';
+        // O backend envia ISO (YYYY-MM-DDTHH:mm:ss.sssZ)
+        // Pegamos apenas a parte da data para evitar deslocamento de fuso horário
+        const [year, month, day] = dateString.split('T')[0].split('-');
+        return `${day}/${month}/${year}`;
     };
 
     const formatDateTime = (dateString) => {

@@ -11,7 +11,7 @@ export default function ItemPage() {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         item: '',
-        data: new Date().toISOString().split('T')[0],
+        data: new Date().toLocaleDateString('en-CA'), // Formato YYYY-MM-DD local
         origem: '',
         destino: '',
         servidor: '',
@@ -30,7 +30,7 @@ export default function ItemPage() {
             const item = await getItemById(id);
             setFormData({
                 item: item.item,
-                data: new Date(item.data).toISOString().split('T')[0],
+                data: item.data.split('T')[0], // Pega apenas YYYY-MM-DD da string ISO
                 origem: item.origem,
                 destino: item.destino,
                 servidor: item.servidor,
