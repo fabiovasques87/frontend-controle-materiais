@@ -82,15 +82,15 @@ export default function ItemPage() {
                 </div>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-white p-5 sm:p-8 rounded-2xl shadow-sm border border-gray-100">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                         <div className="md:col-span-2">
                             <label htmlFor="item" className="block text-sm font-semibold text-gray-700 mb-1">
                                 Descrição do Item
                             </label>
                             <div className="relative">
-                                <Package className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                                <Package className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
                                 <input
                                     type="text"
                                     id="item"
@@ -98,7 +98,7 @@ export default function ItemPage() {
                                     value={formData.item}
                                     onChange={handleChange}
                                     required
-                                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                                     placeholder="Ex: Notebook Dell Latitude"
                                 />
                             </div>
@@ -115,7 +115,7 @@ export default function ItemPage() {
                                 value={formData.data}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                             />
                         </div>
 
@@ -130,7 +130,7 @@ export default function ItemPage() {
                                 value={formData.servidor}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                                 placeholder="Nome do servidor"
                             />
                         </div>
@@ -145,7 +145,7 @@ export default function ItemPage() {
                                 name="patrimonio"
                                 value={formData.patrimonio}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                                 placeholder="Nº do patrimônio (opcional)"
                             />
                         </div>
@@ -161,12 +161,12 @@ export default function ItemPage() {
                                 value={formData.origem}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                                 placeholder="Setor de origem"
                             />
                         </div>
 
-                        <div>
+                        <div className="md:col-span-1">
                             <label htmlFor="destino" className="block text-sm font-semibold text-gray-700 mb-1">
                                 Destino
                             </label>
@@ -177,24 +177,24 @@ export default function ItemPage() {
                                 value={formData.destino}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base"
                                 placeholder="Setor de destino"
                             />
                         </div>
                     </div>
 
-                    <div className="pt-4 border-t border-gray-50 flex gap-4">
+                    <div className="pt-6 border-t border-gray-50 flex flex-col-reverse sm:flex-row gap-3">
                         <button
                             type="button"
                             onClick={() => navigate('/')}
-                            className="flex-1 px-6 py-3 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition"
+                            className="w-full sm:flex-1 px-6 py-3.5 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-[2] flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-indigo-100"
+                            className="w-full sm:flex-[2] flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-3.5 rounded-xl hover:bg-indigo-700 transition font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-indigo-100"
                         >
                             <Save className="w-5 h-5" />
                             {loading ? 'Salvando...' : 'Salvar Material'}

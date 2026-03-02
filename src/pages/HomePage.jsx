@@ -66,21 +66,21 @@ export default function HomePage() {
 
     return (
         <div className="space-y-8">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800">Controle de Materiais</h1>
                     <p className="text-gray-500 text-sm">Gerencie os itens e acompanhe as movimentações.</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
                     <button
                         onClick={() => setIsLogOpen(true)}
-                        className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition relative group"
+                        className="p-2.5 text-gray-500 hover:bg-gray-100 rounded-lg transition relative group border border-gray-100 sm:border-transparent"
                         title="Ver Movimentações"
                     >
                         <History className="w-5 h-5" />
-                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-500 rounded-full border-2 border-white"></span>
+                        <span className="absolute top-2 right-2 w-2 h-2 bg-amber-500 rounded-full border-2 border-white"></span>
                     </button>
-                    <Link to="/new" className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition shadow-md shadow-indigo-100">
+                    <Link to="/new" className="flex-1 sm:flex-none bg-indigo-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-700 transition shadow-md shadow-indigo-100 font-bold">
                         <Plus className="w-4 h-4" /> Novo Item
                     </Link>
                 </div>
@@ -106,7 +106,8 @@ export default function HomePage() {
                                 />
                             </div>
                         </div>
-                        <div className="overflow-x-auto">
+                        {/* Tabela para Desktop */}
+                        <div className="hidden md:block overflow-x-auto">
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-gray-50/50 border-b border-gray-100 text-xs uppercase text-gray-500 font-semibold">
                                     <tr>
@@ -180,6 +181,66 @@ export default function HomePage() {
                                     })()}
                                 </tbody>
                             </table>
+                        </div>
+
+                        {/* Cards para Mobile */}
+                        <div className="md:hidden divide-y divide-gray-100">
+                            {(() => {
+                                const filteredItems = items.filter(item => {
+                                    const search = searchTerm.toLowerCase();
+                                    return (
+                                        item.servidor?.toLowerCase().includes(search) ||
+                                        item.patrimonio?.toLowerCase().includes(search) ||
+                                        item.item?.toLowerCase().includes(search)
+                                    );
+                                });
+
+                                if (filteredItems.length === 0) {
+                                    return <div className="p-8 text-center text-gray-400">Nenhum item encontrado.</div>;
+                                }
+
+                                return filteredItems.map(item => (
+                                    <div key={item.id} className="p-4 space-y-4">
+                                        <div className="flex justify-between items-start">
+                                            <div className="flex-1 pr-4">
+                                                <span className="text-[10px] text-gray-400 uppercase font-bold block mb-0.5">#{item.id}</span>
+                                                <h3 className="font-bold text-gray-900 leading-tight">{item.item}</h3>
+                                                <p className="text-xs text-indigo-600 font-semibold mt-1">{formatDate(item.data)}</p>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <Link to={`/edit/${item.id}`} className="p-2 bg-blue-50 text-blue-600 rounded-lg" title="Editar">
+                                                    <Edit2 className="w-4 h-4" />
+                                                </Link>
+                                                <button onClick={() => handleDelete(item.id)} className="p-2 bg-red-50 text-red-600 rounded-lg" title="Excluir">
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-3 pb-2">
+                                            <div className="bg-gray-50/50 p-2 rounded-lg border border-gray-100">
+                                                <span className="text-[10px] text-gray-400 uppercase block mb-1">Origem</span>
+                                                <span className="text-xs font-medium text-gray-700 truncate block">{item.origem}</span>
+                                            </div>
+                                            <div className="bg-gray-50/50 p-2 rounded-lg border border-gray-100">
+                                                <span className="text-[10px] text-gray-400 uppercase block mb-1">Destino</span>
+                                                <span className="text-xs font-medium text-gray-700 truncate block">{item.destino}</span>
+                                            </div>
+                                            <div className="bg-gray-50/50 p-2 rounded-lg border border-gray-100">
+                                                <span className="text-[10px] text-gray-400 uppercase block mb-1">Servidor</span>
+                                                <div className="flex items-center gap-1.5">
+                                                    <UserIcon className="w-2.5 h-2.5 text-gray-400" />
+                                                    <span className="text-xs font-medium text-gray-700 truncate block">{item.servidor}</span>
+                                                </div>
+                                            </div>
+                                            <div className="bg-gray-50/50 p-2 rounded-lg border border-gray-100">
+                                                <span className="text-[10px] text-gray-400 uppercase block mb-1">Patrimônio</span>
+                                                <span className="text-xs font-mono font-bold text-gray-600 block">{item.patrimonio || '-'}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ));
+                            })()}
                         </div>
                     </div>
                 </div>
